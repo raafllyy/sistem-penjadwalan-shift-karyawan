@@ -135,25 +135,6 @@ Kemudian buka terminal kedua - 2 dan jalankan:
 
 Target pengujian adalah seluruh request dan assertion selesai dengan `0 failed`.
 
-# Struktur Project
-
-app/
-├── api/          # Endpoint API
-├── basis_data/   # Database dan seed
-├── inti/         # Konfigurasi dan error handler
-├── layanan/      # Logika jadwal dan ekspor
-├── model/        # Model database
-├── skema/        # Schema API
-├── statis/       # CSS dan JavaScript
-├── template/     # Halaman HTML
-└── main.py       # Entry point aplikasi
-
-tests/
-├── integrasi/
-└── unit/
-
-postman/          # Collection dan environment Postman
-
 # Troubleshooting
 
 ### Port 8000 sudah digunakan
