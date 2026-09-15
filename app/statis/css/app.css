@@ -1,0 +1,402 @@
+:root {
+    --bg:#f6f7f9;
+    --surface:#fff;
+    --soft:#f9fafb;
+    --text:#182230;
+    --muted:#667085;
+    --subtle:#98a2b3;
+    --border:#e4e7ec;
+    --border-dark:#d0d5dd;
+    --primary:#175cd3;
+    --primary-dark:#1849a9;
+    --primary-soft:#eff4ff;
+    --green:#067647;
+    --green-soft:#ecfdf3;
+    --red:#b42318;
+    --red-soft:#fef3f2;
+    --radius:10px;
+    --shadow:0 1px 3px rgba(16,24,40,.06);
+}
+
+* { box-sizing:border-box; }
+body {
+    margin:0;
+    color:var(--text);
+    background:var(--bg);
+    font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;
+}
+button,input,select { font:inherit; }
+button { cursor:pointer; }
+svg {
+    display:block;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.8;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+.container { width:min(1320px,calc(100% - 48px)); margin:auto; }
+
+.topbar { background:var(--surface); border-bottom:1px solid var(--border); }
+.topbar-inner {
+    min-height:68px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+.brand {
+    display:flex;
+    align-items:center;
+    gap:11px;
+    color:inherit;
+    text-decoration:none;
+}
+.brand-logo {
+    width:36px;
+    height:36px;
+    display:grid;
+    place-items:center;
+    color:#fff;
+    background:var(--primary);
+    border-radius:8px;
+}
+.brand-logo svg { width:20px; height:20px; }
+.brand strong,.brand small { display:block; }
+.brand strong { font-size:13px; }
+.brand small { margin-top:2px; color:var(--muted); font-size:11px; }
+.status {
+    display:flex;
+    align-items:center;
+    gap:7px;
+    padding:6px 10px;
+    color:var(--green);
+    background:var(--green-soft);
+    border:1px solid #abefc6;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:600;
+}
+.status span { width:7px; height:7px; background:#17b26a; border-radius:50%; }
+
+.utama { padding:36px 0 48px; }
+.page-header { margin-bottom:24px; }
+.eyebrow {
+    margin:0 0 7px;
+    color:var(--primary);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.1em;
+}
+.page-header h1 {
+    margin:0;
+    font-size:32px;
+    line-height:1.2;
+    letter-spacing:-.025em;
+}
+.page-header>p:last-child {
+    max-width:680px;
+    margin:9px 0 0;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
+}
+
+.panel {
+    overflow:hidden;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+}
+.panel-jadwal { margin-top:15px; }
+.panel-header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    padding:17px 20px;
+    border-bottom:1px solid var(--border);
+}
+.panel-header h2,.legenda h2 { margin:0; font-size:14px; }
+.panel-header p,.legenda p {
+    margin:4px 0 0;
+    color:var(--muted);
+    font-size:11.5px;
+    line-height:1.5;
+}
+
+.form-periksa {
+    display:grid;
+    grid-template-columns:minmax(220px,1.4fr) minmax(180px,1fr) auto;
+    gap:14px;
+    align-items:end;
+    padding:20px;
+}
+.form-jadwal {
+    display:grid;
+    grid-template-columns:minmax(220px,1.4fr) minmax(170px,1fr) minmax(170px,1fr) auto;
+    gap:14px;
+    align-items:end;
+    padding:20px;
+}
+.field { display:flex; flex-direction:column; gap:6px; min-width:0; }
+.field label { color:#344054; font-size:11.5px; font-weight:600; }
+.field input,.field select {
+    width:100%;
+    height:40px;
+    padding:0 11px;
+    color:var(--text);
+    background:#fff;
+    border:1px solid var(--border-dark);
+    border-radius:7px;
+    outline:0;
+    transition:border-color .15s,box-shadow .15s;
+}
+.field input:hover,.field select:hover { border-color:#98a2b3; }
+.field input:focus,.field select:focus {
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(23,92,211,.1);
+}
+.action { min-width:145px; }
+
+.btn {
+    height:40px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    padding:0 14px;
+    border-radius:7px;
+    font-size:12px;
+    font-weight:600;
+    transition:.15s;
+}
+.btn svg { width:15px; height:15px; }
+.btn-primary {
+    color:#fff;
+    background:var(--primary);
+    border:1px solid var(--primary);
+}
+.btn-primary:hover { background:var(--primary-dark); border-color:var(--primary-dark); }
+.btn-secondary {
+    color:#344054;
+    background:#fff;
+    border:1px solid var(--border-dark);
+}
+.btn-secondary:hover:not(:disabled) { background:var(--soft); }
+.btn:disabled {
+    cursor:not-allowed;
+    color:var(--subtle);
+    background:#f2f4f7;
+    border-color:var(--border);
+}
+
+.hasil-periksa {
+    border-top:1px solid var(--border);
+    background:var(--surface);
+}
+.hasil-periksa-header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:15px 20px;
+    background:var(--soft);
+    border-bottom:1px solid var(--border);
+}
+.hasil-periksa-header h3 {
+    margin:0;
+    color:var(--text);
+    font-size:13px;
+    font-weight:700;
+}
+.hasil-periksa-header p {
+    margin:4px 0 0;
+    color:var(--muted);
+    font-size:11.5px;
+}
+.jumlah-hasil {
+    padding:5px 9px;
+    color:var(--primary);
+    background:var(--primary-soft);
+    border:1px solid #b2ccff;
+    border-radius:999px;
+    font-size:10.5px;
+    font-weight:600;
+    white-space:nowrap;
+}
+.tabel-periksa { min-width:560px; }
+.tabel-periksa th:nth-child(3),
+.tabel-periksa td:nth-child(3),
+.tabel-periksa th:nth-child(4),
+.tabel-periksa td:nth-child(4) { text-align:left; }
+
+.pesan {
+    margin-top:15px;
+    padding:11px 13px;
+    border-radius:7px;
+    font-size:12px;
+}
+.pesan-error {
+    color:var(--red);
+    background:var(--red-soft);
+    border:1px solid #fecdca;
+}
+.pesan-sukses {
+    color:var(--green);
+    background:var(--green-soft);
+    border:1px solid #abefc6;
+}
+.tersembunyi { display:none!important; }
+
+.ringkasan {
+    display:grid;
+    grid-template-columns:.8fr .8fr 1.4fr;
+    gap:13px;
+    margin:15px 0;
+}
+.ringkasan article {
+    min-height:78px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:15px 17px;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+}
+.ringkasan small {
+    margin-bottom:5px;
+    color:var(--muted);
+    font-size:10px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+}
+.ringkasan strong { font-size:19px; }
+.ringkasan article:last-child strong { font-size:13px; }
+
+.header-tabel { min-height:69px; }
+.aksi-ekspor { display:flex; gap:7px; }
+.wadah-tabel { width:100%; overflow-x:auto; }
+.kosong {
+    min-height:260px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+    text-align:center;
+}
+.ikon-kosong {
+    width:42px;
+    height:42px;
+    display:grid;
+    place-items:center;
+    margin-bottom:12px;
+    color:var(--primary);
+    background:var(--primary-soft);
+    border-radius:9px;
+}
+.ikon-kosong svg { width:20px; height:20px; }
+.kosong strong { font-size:12.5px; }
+.kosong p { margin:5px 0 0; color:var(--muted); font-size:11.5px; }
+
+.tabel-jadwal {
+    width:100%;
+    min-width:760px;
+    border-collapse:collapse;
+    font-size:12px;
+}
+.tabel-jadwal th,.tabel-jadwal td {
+    padding:11px 13px;
+    border-bottom:1px solid #eaecf0;
+    text-align:center;
+    white-space:nowrap;
+}
+.tabel-jadwal th {
+    color:#475467;
+    background:var(--soft);
+    font-size:10.5px;
+    font-weight:600;
+}
+.tabel-jadwal td { color:#344054; }
+.tabel-jadwal th:first-child,.tabel-jadwal td:first-child,
+.tabel-jadwal th:nth-child(2),.tabel-jadwal td:nth-child(2) { text-align:left; }
+.tabel-jadwal tbody tr:hover { background:#fafafa; }
+.tabel-jadwal tbody tr:last-child td { border-bottom:0; }
+.nama-karyawan { color:var(--text); font-weight:600; }
+
+.badge {
+    min-width:28px;
+    height:25px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 7px;
+    border:1px solid transparent;
+    border-radius:6px;
+    font-size:10.5px;
+    font-weight:700;
+}
+.shift-p { color:#175cd3; background:#eff4ff; border-color:#b2ccff; }
+.shift-s { color:#b54708; background:#fffaeb; border-color:#fedf89; }
+.shift-m { color:#6941c6; background:#f4f3ff; border-color:#d9d6fe; }
+.shift-l { color:#475467; background:#f2f4f7; border-color:#d0d5dd; }
+
+.legenda {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    margin-top:15px;
+    padding:17px 20px;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+}
+.daftar-legenda { display:flex; gap:18px; flex-wrap:wrap; }
+.daftar-legenda span {
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:#475467;
+    font-size:11.5px;
+}
+
+footer { border-top:1px solid var(--border); }
+footer .container {
+    padding:18px 0;
+    color:var(--subtle);
+    text-align:center;
+    font-size:10.5px;
+}
+
+.wadah-tabel::-webkit-scrollbar { height:7px; }
+.wadah-tabel::-webkit-scrollbar-track { background:#f2f4f7; }
+.wadah-tabel::-webkit-scrollbar-thumb { background:#d0d5dd; border-radius:99px; }
+
+@media (max-width:900px) {
+    .form-periksa,.form-jadwal { grid-template-columns:1fr 1fr; }
+    .form-jadwal .field:first-child { grid-column:1/-1; }
+    .action { min-width:0; }
+    .action .btn { width:100%; }
+    .ringkasan { grid-template-columns:1fr 1fr; }
+    .ringkasan article:last-child { grid-column:1/-1; }
+}
+@media (max-width:640px) {
+    .container { width:min(100% - 24px,1320px); }
+    .brand small { display:none; }
+    .utama { padding-top:26px; }
+    .page-header h1 { font-size:26px; }
+    .form-periksa,.form-jadwal,.ringkasan { grid-template-columns:1fr; }
+    .form-jadwal .field:first-child,.ringkasan article:last-child { grid-column:auto; }
+    .panel-header,.hasil-periksa-header { padding:15px 16px; }
+    .form-periksa,.form-jadwal { padding:16px; }
+    .header-tabel,.legenda { align-items:flex-start; flex-direction:column; }
+    .aksi-ekspor { width:100%; }
+    .aksi-ekspor .btn { flex:1; }
+    .daftar-legenda { display:grid; grid-template-columns:1fr 1fr; width:100%; }
+}

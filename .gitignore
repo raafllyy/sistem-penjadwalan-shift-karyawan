@@ -28,6 +28,9 @@ htmlcov/
 *.csv
 *.xlsx
 
+# Node.js
+node_modules/
+
 # IDE
 .vscode/
 .idea/
@@ -42,6 +45,3 @@ Thumbs.db
 # Temporary Files
 *.tmp
 *.temp
-
-# Node.js
-node_modules/

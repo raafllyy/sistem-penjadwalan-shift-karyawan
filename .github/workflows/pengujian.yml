@@ -1,0 +1,93 @@
+name: Pengujian
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+  pull_request:
+    branches:
+      - main
+      - master
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pengujian:
+    name: Uji Aplikasi
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      MODE_DEBUG: "false"
+      URL_BASIS_DATA: "sqlite:///./database-ci.sqlite3"
+
+    steps:
+      - name: Ambil source code
+        uses: actions/checkout@v4
+
+      - name: Siapkan Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+
+      - name: Instal dependency Python
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Periksa kualitas kode
+        run: ruff check .
+
+      - name: Jalankan pengujian Python
+        run: pytest
+
+      - name: Siapkan Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Instal dependency Node.js
+        run: npm ci
+
+      - name: Jalankan API
+        run: |
+          nohup python -m uvicorn app.main:aplikasi \
+            --host 127.0.0.1 \
+            --port 8000 \
+            > uvicorn.log 2>&1 &
+
+      - name: Tunggu API siap
+        run: |
+          for percobaan in {1..20}; do
+            if curl --fail --silent \
+              http://127.0.0.1:8000/kesehatan > /dev/null; then
+              echo "API siap menerima permintaan."
+              exit 0
+            fi
+
+            echo "Menunggu API... percobaan ${percobaan}/20"
+            sleep 1
+          done
+
+          echo "API gagal dijalankan."
+          cat uvicorn.log
+          exit 1
+
+      - name: Jalankan pengujian Postman
+        run: npm run uji:api
+
+      - name: Tampilkan log API jika gagal
+        if: failure()
+        run: |
+          echo "===== LOG UVICORN ====="
+          cat uvicorn.log || true

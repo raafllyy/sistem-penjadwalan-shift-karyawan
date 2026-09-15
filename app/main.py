@@ -2,8 +2,10 @@ from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
 from app.api.ekspor import router as router_ekspor
+from app.api.halaman import router as router_halaman
 from app.api.jadwal import router as router_jadwal
 from app.api.karyawan import router as router_karyawan
 from app.basis_data.seed import inisialisasi_basis_data
@@ -33,6 +35,13 @@ aplikasi = FastAPI(
 
 daftarkan_penanganan_error(aplikasi)
 
+aplikasi.mount(
+    "/statis",
+    StaticFiles(directory="app/statis"),
+    name="statis",
+)
+
+aplikasi.include_router(router_halaman)
 aplikasi.include_router(router_karyawan)
 aplikasi.include_router(router_jadwal)
 aplikasi.include_router(router_ekspor)

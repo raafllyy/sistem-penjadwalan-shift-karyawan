@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Penjadwalan Shift Karyawan</title>
+    <link rel="stylesheet" href="/statis/css/app.css">
+</head>
+<body>
+<header class="topbar">
+    <div class="container topbar-inner">
+        <div class="brand">
+    <span class="brand-logo">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 2v4M16 2v4M3 9h18M5 4h14a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/>
+        </svg>
+    </span>
+    <span>
+        <strong>Sistem Penjadwalan</strong>
+        <small>Sistem Penjadwalan Shift Karyawan</small>
+    </span>
+</div>
+    </div>
+</header>
+
+<main class="container utama">
+    <section class="page-header">
+        <p class="eyebrow">PENJADWALAN KARYAWAN</p>
+        <h1>Jadwal Shift Karyawan</h1>
+        <p>Periksa shift harian dan tampilkan jadwal kerja berdasarkan pola berulang masing-masing karyawan.</p>
+    </section>
+
+    <section class="panel">
+        <div class="panel-header">
+            <div>
+                <h2>Cek Shift Harian</h2>
+                <p>Periksa shift satu atau seluruh karyawan pada tanggal tertentu.</p>
+            </div>
+        </div>
+
+        <form id="form-periksa" class="form-periksa">
+            <div class="field">
+                <label for="periksa-karyawan">Karyawan</label>
+                <select id="periksa-karyawan">
+                    <option value="">Semua Karyawan</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="periksa-tanggal">Tanggal</label>
+                <input id="periksa-tanggal" type="date" min="2024-12-26" value="2024-12-26" required>
+            </div>
+
+            <div class="field action">
+                <button class="btn btn-primary" type="submit">Cek Shift</button>
+            </div>
+        </form>
+
+        <div id="hasil-periksa" class="hasil-periksa tersembunyi"></div>
+    </section>
+
+    <section class="panel panel-jadwal">
+        <div class="panel-header">
+            <div>
+                <h2>Jadwal Rentang Tanggal</h2>
+                <p>Tampilkan jadwal semua karyawan atau satu karyawan pada periode tertentu.</p>
+            </div>
+        </div>
+
+        <form id="form-jadwal" class="form-jadwal">
+            <div class="field">
+                <label for="kode-karyawan">Karyawan</label>
+                <select id="kode-karyawan" name="kode_karyawan">
+                    <option value="">Semua Karyawan</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="tanggal-mulai">Tanggal Mulai</label>
+                <input id="tanggal-mulai" name="tanggal_mulai" type="date" min="2024-12-26" value="2024-12-26" required>
+            </div>
+
+            <div class="field">
+                <label for="tanggal-selesai">Tanggal Selesai</label>
+                <input id="tanggal-selesai" name="tanggal_selesai" type="date" min="2024-12-26" value="2024-12-26" required>
+            </div>
+
+            <div class="field action">
+                <button id="tombol-tampilkan" class="btn btn-primary" type="submit">Tampilkan Jadwal</button>
+            </div>
+        </form>
+    </section>
+
+    <div id="pesan" class="pesan tersembunyi" aria-live="polite"></div>
+
+    <section class="ringkasan">
+        <article>
+            <small>Karyawan Ditampilkan</small>
+            <strong id="jumlah-karyawan">-</strong>
+        </article>
+        <article>
+            <small>Jumlah Hari</small>
+            <strong id="jumlah-hari">-</strong>
+        </article>
+        <article>
+            <small>Periode</small>
+            <strong id="periode">-</strong>
+        </article>
+    </section>
+
+    <section class="panel hasil-jadwal">
+        <div class="panel-header header-tabel">
+            <div>
+                <h2>Jadwal Shift</h2>
+                <p>Hasil perhitungan jadwal berdasarkan pola kerja masing-masing karyawan.</p>
+            </div>
+
+            <div class="aksi-ekspor">
+                <button id="ekspor-csv" class="btn btn-secondary" type="button" disabled>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/>
+                    </svg>
+                    CSV
+                </button>
+
+                <button id="ekspor-excel" class="btn btn-secondary" type="button" disabled>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/>
+                    </svg>
+                    Excel
+                </button>
+            </div>
+        </div>
+
+        <div id="wadah-tabel" class="wadah-tabel">
+            <div class="kosong">
+                <span class="ikon-kosong">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8 2v4M16 2v4M3 10h18"/>
+                        <rect x="3" y="4" width="18" height="17" rx="2"/>
+                    </svg>
+                </span>
+                <strong>Belum ada jadwal</strong>
+                <p>Gunakan filter di atas untuk menampilkan jadwal.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="legenda">
+        <div>
+            <h2>Keterangan Shift</h2>
+            <p>Kode shift yang digunakan pada jadwal.</p>
+        </div>
+        <div class="daftar-legenda">
+            <span><b class="badge shift-p">P</b>Pagi</span>
+            <span><b class="badge shift-s">S</b>Siang</span>
+            <span><b class="badge shift-m">M</b>Malam</span>
+            <span><b class="badge shift-l">L</b>Libur</span>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">Sistem Penjadwalan Shift Karyawan</div>
+</footer>
+
+<script src="/statis/js/app.js" defer></script>
+</body>
+</html>
