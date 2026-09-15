@@ -34,5 +34,8 @@ def test_karyawan_tidak_ditemukan(
 ) -> None:
     respons = klien_api.get("/api/v1/karyawan/999")
 
+    data = respons.json()
+
     assert respons.status_code == 404
-    assert respons.json()["detail"] == "Karyawan tidak ditemukan."
+    assert data["berhasil"] is False
+    assert data["pesan"] == "Karyawan tidak ditemukan."

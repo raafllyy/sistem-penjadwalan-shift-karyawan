@@ -48,11 +48,12 @@ def test_periksa_jadwal_sebelum_mulai_kerja(
         },
     )
 
-    assert respons.status_code == 422
+    data = respons.json()
 
+    assert respons.status_code == 422
+    assert data["berhasil"] is False
     assert (
-        respons.json()["detail"]
-        == "Jadwal tidak tersedia sebelum tanggal mulai kerja karyawan."
+        data["pesan"] == "Jadwal tidak tersedia sebelum tanggal mulai kerja karyawan."
     )
 
 
@@ -171,11 +172,12 @@ def test_rentang_tanggal_tidak_valid(
         },
     )
 
-    assert respons.status_code == 422
+    data = respons.json()
 
+    assert respons.status_code == 422
+    assert data["berhasil"] is False
     assert (
-        respons.json()["detail"]
-        == "Tanggal mulai tidak boleh lebih besar dari tanggal selesai."
+        data["pesan"] == "Tanggal mulai tidak boleh lebih besar dari tanggal selesai."
     )
 
 
@@ -191,9 +193,11 @@ def test_filter_karyawan_tidak_ditemukan(
         },
     )
 
-    assert respons.status_code == 404
+    data = respons.json()
 
-    assert respons.json()["detail"] == "Karyawan tidak ditemukan."
+    assert respons.status_code == 404
+    assert data["berhasil"] is False
+    assert data["pesan"] == "Karyawan tidak ditemukan."
 
 
 def test_jadwal_sebelum_tanggal_mulai_kerja_ditolak(
@@ -207,9 +211,10 @@ def test_jadwal_sebelum_tanggal_mulai_kerja_ditolak(
         },
     )
 
-    assert respons.status_code == 422
+    data = respons.json()
 
+    assert respons.status_code == 422
+    assert data["berhasil"] is False
     assert (
-        respons.json()["detail"]
-        == "Jadwal tidak tersedia sebelum tanggal mulai kerja karyawan."
+        data["pesan"] == "Jadwal tidak tersedia sebelum tanggal mulai kerja karyawan."
     )

@@ -98,8 +98,11 @@ def test_ekspor_karyawan_tidak_ditemukan(
         },
     )
 
+    data = respons.json()
+
     assert respons.status_code == 404
-    assert respons.json()["detail"] == "Karyawan tidak ditemukan."
+    assert data["berhasil"] is False
+    assert data["pesan"] == "Karyawan tidak ditemukan."
 
 
 def test_ekspor_rentang_tanggal_tidak_valid(
