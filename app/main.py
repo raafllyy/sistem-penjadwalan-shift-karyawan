@@ -1,6 +1,20 @@
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 
+from app.basis_data.seed import inisialisasi_basis_data
 from app.inti.konfigurasi import konfigurasi
+
+
+@asynccontextmanager
+async def siklus_hidup(_: FastAPI) -> AsyncIterator[None]:
+    """Menyiapkan sumber daya aplikasi saat mulai dijalankan."""
+
+    inisialisasi_basis_data()
+
+    yield
+
 
 aplikasi = FastAPI(
     title=konfigurasi.nama_aplikasi,
@@ -10,7 +24,9 @@ aplikasi = FastAPI(
         "berdasarkan pola kerja berulang."
     ),
     debug=konfigurasi.mode_debug,
+    lifespan=siklus_hidup,
 )
+
 
 @aplikasi.get(
     "/",
@@ -25,6 +41,7 @@ def informasi_aplikasi() -> dict:
         "pesan": "Sistem Penjadwalan Shift Karyawan berjalan.",
         "versi": konfigurasi.versi_aplikasi,
     }
+
 
 @aplikasi.get(
     "/kesehatan",
