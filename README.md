@@ -36,7 +36,8 @@ Jika perintah `python` tidak tersedia, coba:
 ## 2. Ambil Project
 
 Jalankan di terminal:
-    git clone <URL_REPOSITORY_GITHUB>
+    git clone (https://github.com/raafllyy/sistem-penjadwalan-shift-karyawan)
+    
     cd sistem-penjadwalan-shift-karyawan
 
 Jika project diperoleh melalui ZIP, extract terlebih dahulu lalu buka terminal pada folder project.
