@@ -1,0 +1,11 @@
+{
+  "name": "sistem-penjadwalan-shift-karyawan",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "uji:api": "newman run \"postman/Sistem Penjadwalan Shift Karyawan - Local.postman_collection.json\" -e \"postman/Local.postman_environment.json\""
+  },
+  "devDependencies": {
+    "newman": "^6.2.1"
+  }
+}

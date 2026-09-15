@@ -1,0 +1,679 @@
+{
+  "info": {
+    "_postman_id": "df0a94e1-5966-4530-8c39-92eee27a14f0",
+    "name": "Sistem Penjadwalan Shift Karyawan - Local",
+    "description": "Dokumentasi dan pengujian API Sistem Penjadwalan Shift Karyawan.  \n  \nAPI digunakan untuk:  \n\\- melihat data karyawan,  \n\\- memeriksa shift pada tanggal tertentu,  \n\\- menampilkan jadwal berdasarkan rentang tanggal,  \n\\- mengekspor jadwal ke CSV dan Excel.EndFragment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52143051",
+    "_collection_link": "https://go.postman.co/collection/52143051-df0a94e1-5966-4530-8c39-92eee27a14f0?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Karyawan",
+      "item": [
+        {
+          "name": "Semua Karyawan",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status respons adalah 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Respons berhasil\", function () {\r",
+                  "    const respons = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(respons.berhasil).to.eql(true);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Jumlah karyawan adalah 4\", function () {\r",
+                  "    const respons = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(respons.jumlah).to.eql(4);\r",
+                  "    pm.expect(respons.data).to.have.lengthOf(4);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url_dasar}}/api/v1/karyawan",
+              "host": [
+                "{{url_dasar}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "karyawan"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Karyawan Tidak Ditemukan",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status respons adalah 404\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Pesan error sesuai\", function () {\r",
+                  "    const respons = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(respons.berhasil).to.eql(false);\r",
+                  "    pm.expect(respons.pesan).to.eql(\r",
+                  "        \"Karyawan tidak ditemukan.\"\r",
+                  "    );\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url_dasar}}/api/v1/karyawan/999",
+              "host": [
+                "{{url_dasar}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "karyawan",
+                "999"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Detail Ahmad",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status respons adalah 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Data karyawan adalah Ahmad\", function () {\r",
+                  "    const respons = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(respons.data.kode_karyawan).to.eql(\"001\");\r",
+                  "    pm.expect(respons.data.nama).to.eql(\"Ahmad\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url_dasar}}/api/v1/karyawan/001",
+              "host": [
+                "{{url_dasar}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "karyawan",
+                "001"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Detail Widi",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status respons adalah 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Data karyawan adalah Widi\", function () {\r",
+                  "    const respons = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(respons.data.kode_karyawan).to.eql(\"002\");\r",
+                  "    pm.expect(respons.data.nama).to.eql(\"Widi\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url_dasar}}/api/v1/karyawan/002",
+              "host": [
+                "{{url_dasar}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "karyawan",
+                "002"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Detail Yono",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status respons adalah 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Data karyawan adalah Yono\", function () {\r",
+                  "    const respons = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(respons.data.kode_karyawan).to.eql(\"003\");\r",
+                  "    pm.expect(respons.data.nama).to.eql(\"Yono\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url_dasar}}/api/v1/karyawan/003",
+              "host": [
+                "{{url_dasar}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "karyawan",
+                "003"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Detail Yohan",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status respons adalah 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Data karyawan adalah Yohan\", function () {\r",
+                  "    const respons = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(respons.data.kode_karyawan).to.eql(\"004\");\r",
+                  "    pm.expect(respons.data.nama).to.eql(\"Yohan\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url_dasar}}/api/v1/karyawan/004",
+              "host": [
+                "{{url_dasar}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "karyawan",
+                "004"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Ekspor",
+      "item": [
+        {
+          "name": "Ekspor Excel",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status respons adalah 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Respons adalah file XLSX\", function () {\r",
+                  "    pm.expect(\r",
+                  "        pm.response.headers.get(\"Content-Type\")\r",
+                  "    ).to.include(\r",
+                  "        \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\"\r",
+                  "    );\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"File memiliki Content-Disposition XLSX\", function () {\r",
+                  "    pm.expect(\r",
+                  "        pm.response.headers.get(\"Content-Disposition\")\r",
+                  "    ).to.include(\".xlsx\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url_dasar}}/api/v1/jadwal/ekspor?tanggal_mulai=2024-12-26&tanggal_selesai=2025-01-05&format=xlsx",
+              "host": [
+                "{{url_dasar}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "jadwal",
+                "ekspor"
+              ],
+              "query": [
+                {
+                  "key": "tanggal_mulai",
+                  "value": "2024-12-26"
+                },
+                {
+                  "key": "tanggal_selesai",
+                  "value": "2025-01-05"
+                },
+                {
+                  "key": "format",
+                  "value": "xlsx"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ekspor CSV",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status respons adalah 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Respons adalah file CSV\", function () {\r",
+                  "    const contentType = pm.response.headers.get(\"Content-Type\");\r",
+                  "\r",
+                  "    pm.expect(contentType).to.include(\"text/csv\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"File memiliki Content-Disposition CSV\", function () {\r",
+                  "    const contentDisposition =\r",
+                  "        pm.response.headers.get(\"Content-Disposition\");\r",
+                  "\r",
+                  "    pm.expect(contentDisposition).to.include(\"attachment\");\r",
+                  "    pm.expect(contentDisposition).to.include(\".csv\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url_dasar}}/api/v1/jadwal/ekspor?tanggal_mulai=2024-12-26&tanggal_selesai=2025-01-05&format=csv",
+              "host": [
+                "{{url_dasar}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "jadwal",
+                "ekspor"
+              ],
+              "query": [
+                {
+                  "key": "tanggal_mulai",
+                  "value": "2024-12-26"
+                },
+                {
+                  "key": "tanggal_selesai",
+                  "value": "2025-01-05"
+                },
+                {
+                  "key": "format",
+                  "value": "csv"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Jadwal",
+      "item": [
+        {
+          "name": "Jadwal Seluruh Karyawan",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status respons adalah 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Respons berhasil\", function () {\r",
+                  "    const respons = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(respons.berhasil).to.eql(true);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Jumlah karyawan adalah 4\", function () {\r",
+                  "    const respons = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(respons.meta.jumlah_karyawan).to.eql(4);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Jumlah hari adalah 4\", function () {\r",
+                  "    const respons = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(respons.meta.jumlah_hari).to.eql(4);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url_dasar}}/api/v1/jadwal?tanggal_mulai=2024-12-26&tanggal_selesai=2024-12-29",
+              "host": [
+                "{{url_dasar}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "jadwal"
+              ],
+              "query": [
+                {
+                  "key": "tanggal_mulai",
+                  "value": "2024-12-26"
+                },
+                {
+                  "key": "tanggal_selesai",
+                  "value": "2024-12-29"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Ambil Jadwal Satu Karyawan",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status respons adalah 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Hanya satu karyawan ditampilkan\", function () {\r",
+                  "    const respons = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(respons.meta.jumlah_karyawan).to.eql(1);\r",
+                  "    pm.expect(respons.data).to.have.lengthOf(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Karyawan adalah Ahmad\", function () {\r",
+                  "    const respons = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(respons.data[0].kode_karyawan).to.eql(\"001\");\r",
+                  "    pm.expect(respons.data[0].nama).to.eql(\"Ahmad\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url_dasar}}/api/v1/jadwal?kode_karyawan=001&tanggal_mulai=2024-12-26&tanggal_selesai=2024-12-29",
+              "host": [
+                "{{url_dasar}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "jadwal"
+              ],
+              "query": [
+                {
+                  "key": "kode_karyawan",
+                  "value": "001"
+                },
+                {
+                  "key": "tanggal_mulai",
+                  "value": "2024-12-26"
+                },
+                {
+                  "key": "tanggal_selesai",
+                  "value": "2024-12-29"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Jadwal Periksa Karyawan",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url_dasar}}/api/v1/jadwal/periksa?kode_karyawan=001&tanggal=2025-01-01",
+              "host": [
+                "{{url_dasar}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "jadwal",
+                "periksa"
+              ],
+              "query": [
+                {
+                  "key": "kode_karyawan",
+                  "value": "001"
+                },
+                {
+                  "key": "tanggal",
+                  "value": "2025-01-01"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sistem",
+      "item": [
+        {
+          "name": "Infromasi Sistem",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status respons adalah 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Aplikasi berjalan dengan baik\", function () {\r",
+                  "    const respons = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(respons.berhasil).to.eql(true);\r",
+                  "    pm.expect(respons).to.have.property(\"versi\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url_dasar}}/",
+              "host": [
+                "{{url_dasar}}"
+              ],
+              "path": [
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Periksa Kesehatan",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status respons adalah 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Status aplikasi adalah sehat\", function () {\r",
+                  "    const respons = pm.response.json();\r",
+                  "\r",
+                  "    pm.expect(respons.berhasil).to.eql(true);\r",
+                  "    pm.expect(respons.status).to.eql(\"sehat\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url_dasar}}/kesehatan",
+              "host": [
+                "{{url_dasar}}"
+              ],
+              "path": [
+                "kesehatan"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "url_dasar",
+      "value": ""
+    }
+  ]
+}
