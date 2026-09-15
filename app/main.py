@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
+from app.api.ekspor import router as router_ekspor
 from app.api.jadwal import router as router_jadwal
 from app.api.karyawan import router as router_karyawan
 from app.basis_data.seed import inisialisasi_basis_data
@@ -31,6 +32,7 @@ aplikasi = FastAPI(
 
 aplikasi.include_router(router_karyawan)
 aplikasi.include_router(router_jadwal)
+aplikasi.include_router(router_ekspor)
 
 
 @aplikasi.get(
